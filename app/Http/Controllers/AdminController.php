@@ -20,7 +20,10 @@ class AdminController extends Controller
     }
     public function Dashboard()
     {
-        return view('admin.index');
+        $admins = DB::table('admins')->get();
+        $customers = DB::table('customers')->get();
+        $products = DB::table('products')->get();
+        return view('admin.index', compact('admins','customers', 'products'));
     }
     public function Login(Request $request)
     {
@@ -50,26 +53,6 @@ class AdminController extends Controller
         ]);
         return redirect()->route('login.from')->with('error', 'Admin Created Successfully');
     }
-    public function Social()
-    {
-        $social = DB::table('socials')->first();
-        return view('admin.social.social', compact('social'));
-    }
-    public function EditSocial(Request $request)
-    {
-        $id = $request->get('id');
-        $social = DB::table('socials')->first();
-        return view('admin.social.social_edit', compact('social', $id));
-    }
-    public function UpdateSocial(Request $request, $id)
-    {
-        $data = array();
-        $data['twitter'] = $request->twitter;
-        $data['facebook'] = $request->facebook;
-        $data['instagram'] = $request->instagram;
-        DB::table('socials')->where('id', $id)->update($data);
-        return redirect()->route('social');
-    }
     public function Profile()
     {
         $id = Auth::guard('admin')->user()->id;
@@ -88,18 +71,17 @@ class AdminController extends Controller
             'name' => 'required',
             'email' => 'required',
         ]);
-        $data = Admin::find(Auth::guard('admin')->user()->id);
-        $data = array();
-        $data['name'] = $request->name;
-        $data['email'] = $request->email;
-        if ($request->file('profile_photo_path')) {
+        $admin = Admin::find($id);
+        $admin->name = $request->input('name');
+        $admin->email = $request->input('email');
+        if ($request->hasFile('profile_photo_path')) {
             $file = $request->file('profile_photo_path');
-            @unlink(public_path('upload/user_images/' . $data->profile_photo_path));
-            $filename = data('YndHi') . $file->getClientOriginalName();
-            $file->move('public_path'('upload/user_images/'), $filename);
-            $data['profile_photo_path'] = $filename;
+            @unlink(public_path('upload/admin_images/' . $admin->profile_photo_path));
+            $extension = $file->getClientOriginalExtension();
+            $filename = time(). '.' .$extension;
+            $file->move('upload/admin_images/', $filename);
+            $admin->profile_photo_path = $filename;
         }
-        DB::table('admins')->update($data);
         return redirect()->route('admin.profile');
     }
 }

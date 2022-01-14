@@ -5,23 +5,28 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\About;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\File; 
 
 class AboutController extends Controller
 {
-    public function About(){
-        $about = DB::table('abouts')->first();
+    public function About()
+    {
+        $about = About::first();
         return view('admin.about.about', compact('about'));
     }
-    public function EditAbout(){
-        $about = DB::table('abouts')->first();
+    public function EditAbout()
+    {
+        $about = About::first();
         return view('admin.about.about_edit', compact('about'));
     }
-    public function UpadteAbout(Request $request){
-        $data = array();
-        $data['title'] = $request->title;
-        $data['content'] = $request->content;
-        $data['about_photo_path'] = $request->about_photo_path;
-        DB::table('abouts')->update($data);
-        return redirect()->route('admin.about');
+    public function UpadteAbout(Request $request)
+    {
+        $about = About::first();
+        $about->title_en = $request->title_en;
+        $about->content_en = $request->content_en;
+        $about->title_ar = $request->title_ar;
+        $about->content_ar = $request->content_ar;
+        $about->update();
+        return redirect()->route('admin.about')->with('success', 'About Updated Successfully');
     }
 }

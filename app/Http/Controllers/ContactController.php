@@ -22,10 +22,11 @@ class ContactController extends Controller
     public function UpdateContact(Request $request)
     {
         $data = array();
-        $data['address'] = $request->address;
+        $data['address_en'] = $request->address_en;
+        $data['address_ar'] = $request->address_ar;
         $data['phone_number'] = $request->phone_number;
         $data['email'] = $request->email;
         DB::table('contacts')->update($data);
-        return redirect()->route('admin.contact.contact');
+        return redirect()->route('admin.contact')->with('success', 'Contact Updated Successfully');
     }
 }

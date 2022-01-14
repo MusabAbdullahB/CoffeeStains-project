@@ -36,48 +36,81 @@
       <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
       <![endif]-->
 </head>
+<div class="center">
+   <img width="210" src="{{asset('backend/assets/img/logo/logo.png')}}" alt="#" />
+</div>
 
 <body class="inner_page login">
    <div class="full_container">
       <div class="container">
          <div class="center verticle_center full_height">
             <div class="login_section">
-               <div class="logo_login">
-                  <div class="center">
-                     <img width="210" src="{{asset('backend/assets/images/logo/logo.png')}}" alt="#" />
-                  </div>
-               </div>
                <div class="login_form">
-                  @if(Session::has('error'))
-                  <div class="alert alert-warning alert-dismissible fade show" role="alert">
-                     <strong></strong> {{session::get('error')}}
-                     <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-                  </div>
-                  @endif
-                  <form action="{{route('admin.login')}}" class="d-block" method="get">
-                     @csrf
-                     <fieldset>
-                        <div class="field">
-                           <label class="label_field">Email Address</label>
-                           <input type="email" name="email" placeholder="E-mail" />
+                  @if(session()->get('lang') == 'arabic')
+                  <a class="version"><a href="{{route('lang.english')}}"><b>عربي</b></a>
+                     @else
+                     <a class="version"><a href="{{route('lang.arabic')}}"><b>English</b></a>
+                        @endif
+                        @if(Session::has('error'))
+                        <div class="alert alert-warning alert-dismissible fade show" role="alert">
+                           <strong></strong> {{session::get('error')}}
                         </div>
-                        <div class="field">
-                           <label class="label_field">Password</label>
-                           <input type="password" name="password" placeholder="Password" />
-                        </div>
-                        <div class="field">
-                           <label class="label_field hidden">hidden label</label>
-                           <label class="form-check-label"><input type="checkbox" class="form-check-input"> Remember Me</label>
-                           <a class="forgot" href="">Forgotten Password?</a>
-                        </div>
-                        <div class="field">
-                           <label class="label_field hidden">hidden label</label>
-                           <button type="submit" class="btn btn-primary enter-btn" href="{{route('admin.login')}}">Log In</button>
-                           <a class="btn btn-primary enter-btn" class="registration" href="{{route('admin.register')}}">Create new account</a>
-                        </div>
+                        @endif
+                        <form action="{{route('admin.login')}}" class="d-block" method="get">
+                           @csrf
+                           <fieldset>
+                              <div class="field">
+                                 <label class="label_field">
+                                    @if(session()->get('lang') == 'arabic') <span>Email Address</span>
+                                    @else <span>الايميل</span>
+                                    @endif
+                                 </label>
+                                 @if(session()->get('lang') == 'arabic')
+                                 <input type="text" name="email" placeholder="Email Address">
+                                 @else
+                                 <input type="text" name="email" placeholder="الايميل">
+                                 @endif
+                              </div>
+                              <div class="field">
+                                 <label class="label_field">
+                                    @if(session()->get('lang') == 'arabic') <span>Password</span>
+                                    @else <span>كلمة المرور</span>
+                                    @endif
+                                 </label>
+                                 @if(session()->get('lang') == 'arabic')
+                                 <input type="password" name="password" placeholder="Password">
+                                 @else
+                                 <input type="password" name="password" placeholder="كلمة المرور">
+                                 @endif
+                              </div>
+                              <div class="field">
+                                 <label class="label_field hidden">hidden label</label>
+                                 <label class="form-check-label"><input type="checkbox" class="form-check-input">
+                                    @if(session()->get('lang') == 'arabic') <span>Remember Me</span>
+                                    @else <span>تذكرني</span>
+                                    @endif
+                                 </label>
+                                 <a class="forgot" href="">
+                                    @if(session()->get('lang') == 'arabic') <span>Forgotten Password?</span>
+                                    @else <span>نسيت كلمة المرور؟</span>
+                                    @endif
+                                 </a>
+                              </div>
+                              <div class="field">
+                                 <label class="label_field hidden">hidden label</label>
+                                 <button type="submit" class="btn btn-primary enter-btn" href="{{route('admin.login')}}">
+                                    @if(session()->get('lang') == 'arabic') <span>Log In</span>
+                                    @else <span>الدخول</span>
+                                    @endif
+                                 </button>
+                                 <a class="btn btn-primary enter-btn" class="registration" href="{{route('admin.register')}}">
+                                    @if(session()->get('lang') == 'arabic') <span>Create new account</span>
+                                    @else <span>انشاء حساب جديد</span>
+                                    @endif</a>
+                              </div>
 
-                     </fieldset>
-                  </form>
+                           </fieldset>
+                        </form>
                </div>
             </div>
          </div>

@@ -24,6 +24,7 @@ class Admin extends Authenticatable
         'email',
         'password',
         'stauts',
+        'profile_photo',
     ];
 
     /**

@@ -9,7 +9,7 @@
    <meta name="viewport" content="width=device-width, initial-scale=1">
    <meta name="viewport" content="initial-scale=1, maximum-scale=1">
    <!-- site metas -->
-   <title>Admin Panel Login</title>
+   <title>Login</title>
    <meta name="keywords" content="">
    <meta name="description" content="">
    <meta name="author" content="">
@@ -37,38 +37,75 @@
       <![endif]-->
 </head>
 
+<div class="center">
+   <img width="210" src="{{asset('backend/assets/img/logo/logo.png')}}" alt="#" />
+</div>
+
 <body class="inner_page login">
    <div class="full_container">
       <div class="container">
          <div class="center verticle_center full_height">
             <div class="login_section">
-               <div class="logo_login">
-                  <div class="center">
-                     <img width="210" src="{{asset('backend/assets/images/logo/logo.png')}}" alt="#" />
-                  </div>
-               </div>
                <div class="login_form">
-                  <form class="d-block" method="post" action="{{ route('admin.register.create') }}">
-                     @csrf
-                     <div class="field">
-                        <label class="label_field">Username</label>
-                        <input type="text" name="name" placeholder="Username">
-                     </div>
-                     <div class="field">
-                        <label class="label_field">Email Address</label>
-                        <input type="email" name="email" placeholder="E-mail">
-                     </div>
-                     <div class="field">
-                        <label class="label_field">Password</label>
-                        <input type="password" name="password" placeholder="Password">
-                     </div>
+                  @if(session()->get('lang') == 'arabic')
+                  <a class="version"><a href="{{route('lang.english')}}"><b>عربي</b></a>
+                     @else
+                     <a class="version"><a href="{{route('lang.arabic')}}"><b>English</b></a>
+                        @endif
+                        <form class="d-block" method="post" action="{{ route('admin.register.create') }}">
+                           @csrf
+                           <div class="field">
+                              <label class="label_field">
+                                 @if(session()->get('lang') == 'arabic') <span>Username</span>
+                                 @else <span>اسم المستخدم</span>
+                                 @endif
+                              </label>
+                              @if(session()->get('lang') == 'arabic')
+                              <input type="text" name="name" placeholder="Username">
+                              @else
+                              <input type="text" name="name" placeholder="اسم المستخدم">
+                              @endif
+                           </div>
+                           <div class="field">
+                              <label class="label_field">
+                                 @if(session()->get('lang') == 'arabic') <span>Email Address</span>
+                                 @else <span>الايميل</span>
+                                 @endif
+                              </label>
+                              @if(session()->get('lang') == 'arabic')
+                              <input type="text" name="email" placeholder="Email Address">
+                              @else
+                              <input type="text" name="email" placeholder="الايميل">
+                              @endif
+                           </div>
+                           <div class="field">
+                              <label class="label_field">
+                                 @if(session()->get('lang') == 'arabic') <span>Password</span>
+                                 @else <span>كلمة المرور</span>
+                                 @endif
+                              </label>
+                              @if(session()->get('lang') == 'arabic')
+                              <input type="text" name="Password" placeholder="Password">
+                              @else
+                              <input type="text" name="Password" placeholder="كلمة المرور">
+                              @endif
+                           </div>
+                           <div class="text-center">
+                              <button type="submit" class="btn btn-primary btn-block enter-btn">
+                                 @if(session()->get('lang') == 'arabic') <span>Signup</span>
+                                 @else <span>التسجيل</span>
+                                 @endif
+                              </button>
+                           </div>
 
-                     <div class="text-center">
-                        <button type="submit" class="btn btn-primary btn-block enter-btn">Signup</button>
-                     </div>
-
-                     <p class="sign-in text-center">Already have an Account?<a href="{{ route('login.from') }}"> Login</a></p>
-                  </form>
+                           <p class="sign-in text-center">
+                              @if(session()->get('lang') == 'arabic') <span>Already have an Account?</span>
+                              @else <span>هل سجلت مسبقًا؟</span>
+                              @endif<a href="{{ route('login.from') }}">
+                                 @if(session()->get('lang') == 'arabic') <span>Login</span>
+                                 @else <span>الدخول</span>
+                                 @endif</a></p>
+                        </form>
                </div>
             </div>
          </div>

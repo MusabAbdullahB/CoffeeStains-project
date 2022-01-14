@@ -4,11 +4,11 @@
 <head>
 	<meta charset="utf-8">
 	<meta http-equiv="x-ua-compatible" content="ie=edge">
-	<title>Home</title>
-	<meta name="description" content="Hurst – Furniture Store eCommerce HTML Template is a clean and elegant design – suitable for selling flower, cookery, accessories, fashion, high fashion, accessories, digital, kids, watches, jewelries, shoes, kids, furniture, sports….. It has a fully responsive width adjusts automatically to any screen size or resolution.">
+	<title>CoffeeShop</title>
+	<meta name="description" content="">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 
-	<link rel="shortcut icon" type="image/x-icon" href="img/favicon.ico">
+	<link rel="shortcut icon" type="image/x-icon" href="{{asset('frontend/assets/img/favicon.ico')}}">
 	<!-- Place favicon.ico in the root directory -->
 
 	<!-- Google Font -->
@@ -126,9 +126,15 @@
 				<nav>
 					<ul>
 						<li>
-							<a href="/">home</a>
+							<a href="/">
+								@if(session()->get('lang') == 'arabic') <a>home</a>
+								@else <a>الرئيسية</a>
+								@endif</a>
 						</li>
-						<li><a href="shop.html">products</a>
+						<li><a href="shop.html">
+								@if(session()->get('lang') == 'arabic') <a>products</a>
+								@else <a>المنتجات</a>
+								@endif</a>
 							<div class="mega-menu menu-scroll">
 								<div class="table">
 									<div class="table-cell">
@@ -149,9 +155,25 @@
 								</div>
 							</div>
 						</li>
-						<li><a href="{{route('home.about')}}">about us</a></li>
-						<li><a href="{{route('home.contact')}}">contact</a></li>
-						<li><a href="{{ route('login.from') }}">Admin</a></li>
+						<li><a href="{{route('home.about')}}">
+								@if(session()->get('lang') == 'arabic') <a>about us</a>
+								@else <a>عن الموقع</a>
+								@endif</a></li>
+						<li><a href="{{route('home.contact')}}">
+								@if(session()->get('lang') == 'arabic') <a>contact</a>
+								@else <a>بيانات الاتصال</a>
+								@endif</a></li>
+						<li><a href="{{ route('login.from') }}">
+								@if(session()->get('lang') == 'arabic') <a>Admin</a>
+								@else <a>المدير</a>
+								@endif</a></li>
+						@if(session()->get('lang') == 'arabic')
+						<li class="version"><a href="{{route('lang.english')}}"><i></i><b>عربي</b></a>
+						<li>
+							@else
+						<li class="version"><a href="{{route('lang.arabic')}}"><i></i><b>English</b></a>
+						<li>
+							@endif
 					</ul>
 				</nav>
 			</div>
@@ -166,39 +188,33 @@
 						<div class="mobile-menu">
 							<nav id="dropdown">
 								<ul>
-									<li><a href="index.html">home</a>
-										<ul>
-											<li><a href="index.html">Home Version 1</a></li>
-											<li><a href="index-2.html">Home Version 2</a></li>
-										</ul>
+									<li>
+										<a href="/">home</a>
 									</li>
-									<li><a href="shop.html">products</a></li>
-									<li><a href="shop-sidebar.html">accesories</a></li>
-									<li><a href="shop-list.html">lookbook</a></li>
-									<li><a href="blog.html">blog</a></li>
-									<li><a href="#">pages</a>
-										<ul>
-											<li><a href="shop.html">Shop</a></li>
-											<li><a href="shop-sidebar.html">Shop Sidebar</a></li>
-											<li><a href="shop-list.html">Shop List</a></li>
-											<li><a href="single-product.html">Single Product</a></li>
-											<li><a href="single-product-sidebar.html">Single Product Sidebar</a></li>
-											<li><a href="cart.html">Shopping Cart</a></li>
-											<li><a href="wishlist.html">Wishlist</a></li>
-											<li><a href="checkout.html">Checkout</a></li>
-											<li><a href="order.html">Order</a></li>
-											<li><a href="login.html">login / Registration</a></li>
-											<li><a href="my-account.html">My Account</a></li>
-											<li><a href="404.html">404</a></li>
-											<li><a href="blog.html">Blog</a></li>
-											<li><a href="single-blog.html">Single Blog</a></li>
-											<li><a href="single-blog-sidebar.html">Single Blog Sidebar</a></li>
-											<li><a href="about.html">About Us</a></li>
-											<li><a href="contact.html">Contact</a></li>
-										</ul>
+									<li><a href="shop.html">products</a>
+										<div class="mega-menu menu-scroll">
+											<div class="table">
+												<div class="table-cell">
+													<div class="half-width">
+														<ul>
+															<li class="menu-title">Roaster</li>
+															<li><a href="#">henning koppel</a></li>
+														</ul>
+													</div>
+													<div class="half-width">
+														<ul>
+															<li class="menu-title">Origin</li>
+															<li><a href="#">akiko kuwahata</a></li>
+														</ul>
+													</div>
+													<div class="pb-80"></div>
+												</div>
+											</div>
+										</div>
 									</li>
-									<li><a href="about.html">about us</a></li>
-									<li><a href="contact.html">contact</a></li>
+									<li><a href="{{route('home.about')}}">about us</a></li>
+									<li><a href="{{route('home.contact')}}">contact</a></li>
+									<li><a href="{{ route('login.from') }}">Admin</a></li>
 								</ul>
 							</nav>
 						</div>
@@ -216,41 +232,72 @@
 					<div class="row">
 						<div class="col-lg-4 col-md-6">
 							<div class="single-footer">
-								<h3 class="footer-title  title-border">Contact Us</h3>
+								@php
+								$contact = DB::table('contacts')->first();
+								@endphp
+								<h3 class="footer-title  title-border">
+									@if(session()->get('lang') == 'arabic') <a>Contact Us</a>
+									@else <a>تواصل معنا</a>
+									@endif
+								</h3>
 								<ul class="footer-contact">
-									<li><span>Address :</span>28 Green Tower, Street Name,<br>New York City, USA</li>
-									<li><span>Cell-Phone :</span>012345 - 123456789</li>
-									<li><span>Email :</span>your-email@gmail.com</li>
+									<li>
+										<span>
+											@if(session()->get('lang') == 'arabic') <a>Address :</a>
+											@else <a>العنوان:</a>
+											@endif
+										</span>
+										@if(session()->get('lang') == 'arabic') <a>{{$contact->address_en}}</a>
+										@else <a>{{$contact->address_ar}}</a>
+										@endif
+									</li>
+									<li><span>Cell-Phone :</span>{{$contact->phone_number}}</li>
+									<li><span>Email :</span>{{$contact->email}}</li>
 								</ul>
 							</div>
 						</div>
 						<div class="col-lg-2 col-md-3 col-sm-6">
 							<div class="single-footer">
-								<h3 class="footer-title  title-border">accounts</h3>
+								<h3 class="footer-title  title-border">
+									@if(session()->get('lang') == 'arabic') <a>accounts</a>
+									@else <a>الحساب</a>
+									@endif
+								</h3>
 								<ul class="footer-menu">
-									<li><a href="#"><i class="zmdi zmdi-dot-circle"></i>My Account</a></li>
-									<li><a href="#"><i class="zmdi zmdi-dot-circle"></i>My Wishlist</a></li>
-									<li><a href="#"><i class="zmdi zmdi-dot-circle"></i>My Cart</a></li>
-									<li><a href="#"><i class="zmdi zmdi-dot-circle"></i>Sign In</a></li>
-									<li><a href="#"><i class="zmdi zmdi-dot-circle"></i>Check out</a></li>
-								</ul>
-							</div>
-						</div>
-						<div class="col-lg-2 col-md-3 col-sm-6">
-							<div class="single-footer">
-								<h3 class="footer-title  title-border">shipping</h3>
-								<ul class="footer-menu">
-									<li><a href="#"><i class="zmdi zmdi-dot-circle"></i>New Products</a></li>
-									<li><a href="#"><i class="zmdi zmdi-dot-circle"></i>Top Sellers</a></li>
-									<li><a href="#"><i class="zmdi zmdi-dot-circle"></i>Manufactirers</a></li>
-									<li><a href="#"><i class="zmdi zmdi-dot-circle"></i>Suppliers</a></li>
-									<li><a href="#"><i class="zmdi zmdi-dot-circle"></i>Specials</a></li>
+									<li>
+										<a href="#"><i class="zmdi zmdi-dot-circle"></i>
+											@if(session()->get('lang') == 'arabic') <a>My Account</a>
+											@else <a>حسابي</a>
+											@endif
+										</a>
+									</li>
+									<li>
+										<a href="#"><i class="zmdi zmdi-dot-circle"></i>
+											@if(session()->get('lang') == 'arabic') <a>My Wishlist</a>
+											@else <a>قائمة الأمنيات</a>
+											@endif
+										</a>
+									</li>
+									<li>
+										<a href="#"><i class="zmdi zmdi-dot-circle"></i>
+											@if(session()->get('lang') == 'arabic') <a>My Cart</a>
+											@else <a>سلة مشترياتي</a>
+											@endif
+										</a>
+									</li>
+									<li>
+										<a href="#"><i class="zmdi zmdi-dot-circle"></i>
+											@if(session()->get('lang') == 'arabic') <a>Check out</a>
+											@else <a>إتمام الشراء</a>
+											@endif
+										</a>
+									</li>
 								</ul>
 							</div>
 						</div>
 						<div class="col-lg-4 col-md-6">
 							<div class="single-footer">
-								<h3 class="footer-title  title-border">your choice Products</h3>
+								<h3 class="footer-title  title-border">your Wishlist</h3>
 								<div class="footer-product">
 									<div class="row">
 										<div class="col-sm-6 col-12">
@@ -302,66 +349,6 @@
 			<!-- Copyright-area start -->
 		</footer>
 		<!-- FOOTER END -->
-		<!-- QUICKVIEW PRODUCT -->
-		<div id="quickview-wrapper">
-			<!-- Modal -->
-			<div class="modal fade" id="productModal" tabindex="-1" role="dialog">
-				<div class="modal-dialog" role="document">
-					<div class="modal-content">
-						<div class="modal-header">
-							<button type="button" class="close" data-bs-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-						</div>
-						<div class="modal-body">
-							<div class="modal-product">
-								<div class="product-images">
-									<div class="main-image images">
-										<img alt="#" src="{{asset('frontend/assets/img/product/quickview-photo.jpg')}}" />
-									</div>
-								</div><!-- .product-images -->
-
-								<div class="product-info">
-									<h1>Aenean eu tristique</h1>
-									<div class="price-box-3">
-										<hr />
-										<div class="s-price-box">
-											<span class="new-price">$160.00</span>
-											<span class="old-price">$190.00</span>
-										</div>
-										<hr />
-									</div>
-									<a href="shop.html" class="see-all">See all features</a>
-									<div class="quick-add-to-cart">
-										<form method="post" class="cart">
-											<div class="numbers-row">
-												<input type="number" id="french-hens" value="3" min="1">
-											</div>
-											<button class="single_add_to_cart_button" type="submit">Add to cart</button>
-										</form>
-									</div>
-									<div class="quick-desc">
-										Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam fringilla augue nec est tristique auctor. Donec non est at libero.
-									</div>
-									<div class="social-sharing">
-										<div class="widget widget_socialsharing_widget">
-											<h3 class="widget-title-modal">Share this product</h3>
-											<ul class="social-icons">
-												<li><a target="_blank" title="Google +" href="#" class="gplus social-icon"><i class="zmdi zmdi-google-plus"></i></a></li>
-												<li><a target="_blank" title="Twitter" href="#" class="twitter social-icon"><i class="zmdi zmdi-twitter"></i></a></li>
-												<li><a target="_blank" title="Facebook" href="#" class="facebook social-icon"><i class="zmdi zmdi-facebook"></i></a></li>
-												<li><a target="_blank" title="LinkedIn" href="#" class="linkedin social-icon"><i class="zmdi zmdi-linkedin"></i></a></li>
-											</ul>
-										</div>
-									</div>
-								</div><!-- .product-info -->
-							</div><!-- .modal-product -->
-						</div><!-- .modal-body -->
-					</div><!-- .modal-content -->
-				</div><!-- .modal-dialog -->
-			</div>
-			<!-- END Modal -->
-		</div>
-		<!-- END QUICKVIEW PRODUCT -->
-
 	</div>
 	<!-- WRAPPER END -->
 

@@ -9,8 +9,9 @@ class About extends Model
 {
     use HasFactory;
     protected $fillable = [
-        'title',
-        'content',
-        'about_photo_path',
+        'title_en',
+        'content_en',
+        'title_ar',
+        'content_ar',
     ];
 }
